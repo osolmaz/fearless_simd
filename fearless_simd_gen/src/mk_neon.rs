@@ -317,6 +317,20 @@ impl Level for Neon {
                     }
                 })
             }
+            OpSig::Ternary if method == "mul_add" => {
+                quote! {
+                    #method_sig {
+                        a * b + c
+                    }
+                }
+            }
+            OpSig::Ternary if method == "mul_sub" => {
+                quote! {
+                    #method_sig {
+                        a * b - c
+                    }
+                }
+            }
             OpSig::Ternary => {
                 let args = match method {
                     "mul_add" | "mul_sub" => [

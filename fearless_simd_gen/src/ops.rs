@@ -803,15 +803,15 @@ const FLOAT_OPS: &[Op] = &[
         "mul_add",
         OpKind::VecTraitMethod,
         OpSig::Ternary,
-        "Compute `({arg0} * {arg1}) + {arg2}` (fused multiply-add) for each element.\n\n\
-        Depending on hardware support, the result may be computed with only one rounding error, or may be implemented as a regular multiply followed by an add, which will result in two rounding errors.",
+        "Compute `({arg0} * {arg1}) + {arg2}` for each element.\n\n\
+        On every level the result is a regular multiply followed by an add, with two rounding errors, so that it is the same on every machine.",
     ),
     Op::new(
         "mul_sub",
         OpKind::VecTraitMethod,
         OpSig::Ternary,
-        "Compute `({arg0} * {arg1}) - {arg2}` (fused multiply-subtract) for each element.\n\n\
-        Depending on hardware support, the result may be computed with only one rounding error, or may be implemented as a regular multiply followed by a subtract, which will result in two rounding errors.",
+        "Compute `({arg0} * {arg1}) - {arg2}` for each element.\n\n\
+        On every level the result is a regular multiply followed by a subtract, with two rounding errors, so that it is the same on every machine.",
     ),
     Op::new(
         "floor",

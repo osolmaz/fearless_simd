@@ -2300,22 +2300,6 @@ impl X86 {
         vec_ty: &VecType,
     ) -> TokenStream {
         match method {
-            "mul_add" if matches!(self, Self::Avx2 | Self::Avx512) => {
-                let intrinsic = simple_intrinsic("fmadd", vec_ty);
-                self.kernel_method(
-                    op,
-                    vec_ty,
-                    |token| quote! { #intrinsic(a.into(), b.into(), c.into()).simd_into(#token) },
-                )
-            }
-            "mul_sub" if matches!(self, Self::Avx2 | Self::Avx512) => {
-                let intrinsic = simple_intrinsic("fmsub", vec_ty);
-                self.kernel_method(
-                    op,
-                    vec_ty,
-                    |token| quote! { #intrinsic(a.into(), b.into(), c.into()).simd_into(#token) },
-                )
-            }
             "mul_add" => {
                 quote! {
                     #method_sig {

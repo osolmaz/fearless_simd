@@ -357,23 +357,11 @@ impl Simd for Avx2 {
     }
     #[inline(always)]
     fn mul_add_f32x4(self, a: f32x4<Self>, b: f32x4<Self>, c: f32x4<Self>) -> f32x4<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f32x4<Avx2>, b: f32x4<Avx2>, c: f32x4<Avx2>) -> f32x4<Avx2> {
-                _mm_fmadd_ps(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b + c
     }
     #[inline(always)]
     fn mul_sub_f32x4(self, a: f32x4<Self>, b: f32x4<Self>, c: f32x4<Self>) -> f32x4<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f32x4<Avx2>, b: f32x4<Avx2>, c: f32x4<Avx2>) -> f32x4<Avx2> {
-                _mm_fmsub_ps(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b - c
     }
     #[inline(always)]
     fn floor_f32x4(self, a: f32x4<Self>) -> f32x4<Self> {
@@ -3879,23 +3867,11 @@ impl Simd for Avx2 {
     }
     #[inline(always)]
     fn mul_add_f64x2(self, a: f64x2<Self>, b: f64x2<Self>, c: f64x2<Self>) -> f64x2<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f64x2<Avx2>, b: f64x2<Avx2>, c: f64x2<Avx2>) -> f64x2<Avx2> {
-                _mm_fmadd_pd(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b + c
     }
     #[inline(always)]
     fn mul_sub_f64x2(self, a: f64x2<Self>, b: f64x2<Self>, c: f64x2<Self>) -> f64x2<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f64x2<Avx2>, b: f64x2<Avx2>, c: f64x2<Avx2>) -> f64x2<Avx2> {
-                _mm_fmsub_pd(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b - c
     }
     #[inline(always)]
     fn floor_f64x2(self, a: f64x2<Self>) -> f64x2<Self> {
@@ -5267,23 +5243,11 @@ impl Simd for Avx2 {
     }
     #[inline(always)]
     fn mul_add_f32x8(self, a: f32x8<Self>, b: f32x8<Self>, c: f32x8<Self>) -> f32x8<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f32x8<Avx2>, b: f32x8<Avx2>, c: f32x8<Avx2>) -> f32x8<Avx2> {
-                _mm256_fmadd_ps(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b + c
     }
     #[inline(always)]
     fn mul_sub_f32x8(self, a: f32x8<Self>, b: f32x8<Self>, c: f32x8<Self>) -> f32x8<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f32x8<Avx2>, b: f32x8<Avx2>, c: f32x8<Avx2>) -> f32x8<Avx2> {
-                _mm256_fmsub_ps(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b - c
     }
     #[inline(always)]
     fn floor_f32x8(self, a: f32x8<Self>) -> f32x8<Self> {
@@ -8949,23 +8913,11 @@ impl Simd for Avx2 {
     }
     #[inline(always)]
     fn mul_add_f64x4(self, a: f64x4<Self>, b: f64x4<Self>, c: f64x4<Self>) -> f64x4<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f64x4<Avx2>, b: f64x4<Avx2>, c: f64x4<Avx2>) -> f64x4<Avx2> {
-                _mm256_fmadd_pd(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b + c
     }
     #[inline(always)]
     fn mul_sub_f64x4(self, a: f64x4<Self>, b: f64x4<Self>, c: f64x4<Self>) -> f64x4<Self> {
-        crate::kernel!(
-            #[inline(always)]
-            fn kernel(token: Avx2, a: f64x4<Avx2>, b: f64x4<Avx2>, c: f64x4<Avx2>) -> f64x4<Avx2> {
-                _mm256_fmsub_pd(a.into(), b.into(), c.into()).simd_into(token)
-            }
-        );
-        kernel(self, a, b, c)
+        a * b - c
     }
     #[inline(always)]
     fn floor_f64x4(self, a: f64x4<Self>) -> f64x4<Self> {

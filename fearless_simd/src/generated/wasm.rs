@@ -233,25 +233,11 @@ impl Simd for WasmSimd128 {
     }
     #[inline(always)]
     fn mul_add_f32x4(self, a: f32x4<Self>, b: f32x4<Self>, c: f32x4<Self>) -> f32x4<Self> {
-        #[cfg(target_feature = "relaxed-simd")]
-        {
-            f32x4_relaxed_madd(a.into(), b.into(), c.into()).simd_into(self)
-        }
-        #[cfg(not(target_feature = "relaxed-simd"))]
-        {
-            self.add_f32x4(self.mul_f32x4(a, b), c)
-        }
+        self.add_f32x4(self.mul_f32x4(a, b), c)
     }
     #[inline(always)]
     fn mul_sub_f32x4(self, a: f32x4<Self>, b: f32x4<Self>, c: f32x4<Self>) -> f32x4<Self> {
-        #[cfg(target_feature = "relaxed-simd")]
-        {
-            f32x4_relaxed_madd(a.into(), b.into(), f32x4_neg(c.into())).simd_into(self)
-        }
-        #[cfg(not(target_feature = "relaxed-simd"))]
-        {
-            self.sub_f32x4(self.mul_f32x4(a, b), c)
-        }
+        self.sub_f32x4(self.mul_f32x4(a, b), c)
     }
     #[inline(always)]
     fn floor_f32x4(self, a: f32x4<Self>) -> f32x4<Self> {
@@ -2191,25 +2177,11 @@ impl Simd for WasmSimd128 {
     }
     #[inline(always)]
     fn mul_add_f64x2(self, a: f64x2<Self>, b: f64x2<Self>, c: f64x2<Self>) -> f64x2<Self> {
-        #[cfg(target_feature = "relaxed-simd")]
-        {
-            f64x2_relaxed_madd(a.into(), b.into(), c.into()).simd_into(self)
-        }
-        #[cfg(not(target_feature = "relaxed-simd"))]
-        {
-            self.add_f64x2(self.mul_f64x2(a, b), c)
-        }
+        self.add_f64x2(self.mul_f64x2(a, b), c)
     }
     #[inline(always)]
     fn mul_sub_f64x2(self, a: f64x2<Self>, b: f64x2<Self>, c: f64x2<Self>) -> f64x2<Self> {
-        #[cfg(target_feature = "relaxed-simd")]
-        {
-            f64x2_relaxed_madd(a.into(), b.into(), f64x2_neg(c.into())).simd_into(self)
-        }
-        #[cfg(not(target_feature = "relaxed-simd"))]
-        {
-            self.sub_f64x2(self.mul_f64x2(a, b), c)
-        }
+        self.sub_f64x2(self.mul_f64x2(a, b), c)
     }
     #[inline(always)]
     fn floor_f64x2(self, a: f64x2<Self>) -> f64x2<Self> {

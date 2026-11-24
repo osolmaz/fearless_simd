@@ -422,25 +422,9 @@ impl Level for WasmSimd128 {
                         generic_op_name(if method == "mul_add" { "add" } else { "sub" }, vec_ty);
                     let mul = generic_op_name("mul", vec_ty);
 
-                    let c = if method == "mul_sub" {
-                        // WebAssembly just... forgot fused multiply-subtract? It seems the
-                        // initial proposal
-                        // (https://github.com/WebAssembly/relaxed-simd/issues/27) confused it
-                        // with negate multiply-add, and nobody ever resolved the confusion.
-                        let negate = simple_intrinsic("neg", vec_ty);
-                        quote! { #negate(c.into()) }
-                    } else {
-                        quote! { c.into() }
-                    };
-                    let relaxed_madd = simple_intrinsic("relaxed_madd", vec_ty);
-
                     quote! {
                         #method_sig {
-                            #[cfg(target_feature = "relaxed-simd")]
-                            { #relaxed_madd(a.into(), b.into(), #c).simd_into(self) }
-
-                            #[cfg(not(target_feature = "relaxed-simd"))]
-                            { self.#add_sub(self.#mul(a, b), c) }
+                            self.#add_sub(self.#mul(a, b), c)
                         }
                     }
                 } else {
